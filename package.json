@@ -1,0 +1,23 @@
+{
+  "name": "gitlab-tools",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "check:all": "pnpm ls-lint && pnpm format:check",
+    "format": "prettier --write './**/*.{ts,js,md,json}'",
+    "format:check": "prettier --list-different './**/*.{ts,js,md,json}'",
+    "ls-lint": "ls-lint"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.12.2",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "devDependencies": {
+    "@ls-lint/ls-lint": "2.3.1",
+    "prettier": "3.6.2"
+  }
+}

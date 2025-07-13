@@ -1,0 +1,35 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .:
+    devDependencies:
+      '@ls-lint/ls-lint':
+        specifier: 2.3.1
+        version: 2.3.1
+      prettier:
+        specifier: 3.6.2
+        version: 3.6.2
+
+packages:
+
+  '@ls-lint/ls-lint@2.3.1':
+    resolution: {integrity: sha512-vPe6IDByQnQRTxcAYjTxrmga/tSIui50VBFTB5KIJWY3OOFmxE2VtymjeSEfQfiMbhZV/ZPAqYy2lt8pZFQ0Rw==}
+    cpu: [x64, arm64, s390x, ppc64le]
+    os: [darwin, linux, win32]
+    hasBin: true
+
+  prettier@3.6.2:
+    resolution: {integrity: sha512-I7AIg5boAr5R0FFtJ6rCfD+LFsWHp81dolrFD8S79U9tb8Az2nGrJncnMSnys+bpQJfRUzqs9hnA81OAA3hCuQ==}
+    engines: {node: '>=14'}
+    hasBin: true
+
+snapshots:
+
+  '@ls-lint/ls-lint@2.3.1': {}
+
+  prettier@3.6.2: {}
