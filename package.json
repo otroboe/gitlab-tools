@@ -7,17 +7,25 @@
     "check:all": "pnpm ls-lint && pnpm format:check",
     "format": "prettier --write './**/*.{ts,js,md,json}'",
     "format:check": "prettier --list-different './**/*.{ts,js,md,json}'",
-    "ls-lint": "ls-lint"
+    "ls-lint": "ls-lint",
+    "show:groups": "tsx src/commands/show-groups.command.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "type": "module",
   "packageManager": "pnpm@10.12.2",
   "engines": {
     "node": ">=24.0.0"
   },
   "devDependencies": {
+    "@gitbeaker/rest": "43.0.0",
     "@ls-lint/ls-lint": "2.3.1",
-    "prettier": "3.6.2"
+    "@trivago/prettier-plugin-sort-imports": "5.2.2",
+    "@types/node": "24.0.13",
+    "dotenv": "17.2.0",
+    "prettier": "3.6.2",
+    "tsx": "4.20.3",
+    "typescript": "5.8.3"
   }
 }
