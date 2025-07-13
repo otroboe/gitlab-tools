@@ -4,7 +4,7 @@
 
 - node
 - corepack
-- nvm
+- nvm (or equivalent)
 - pnpm
 
 ## Gitlab Token
@@ -27,7 +27,7 @@ Prepare env variables, copy the files and change variables for your needs.
 cp .env.example .env
 ```
 
-## Commands
+## Misc npm scripts
 
 ```bash
 # Check sanity
@@ -69,10 +69,10 @@ pnpm update --latest -interactive
 ## Resources
 
 - [TS Config Reference](https://www.typescriptlang.org/tsconfig/)
-- [Gitbeaker](https://www.npmjs.com/package/@gitbeaker/rest)
+- [Gitbeaker](https://github.com/jdalrymple/gitbeaker)
 - [Gitbeaker Supported APIs](https://github.com/jdalrymple/gitbeaker/blob/main/packages/core/README.md#supported-apis)
 
-## Commands
+## Available Gitlab Commands
 
 ```bash
 # List the groups you have access to

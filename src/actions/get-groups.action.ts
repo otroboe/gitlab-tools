@@ -2,6 +2,9 @@ import { Camelize, GroupSchema, Groups } from '@gitbeaker/rest';
 
 import { gitbeakerOptions } from '@/config';
 
+/**
+ * https://docs.gitlab.com/api/groups/#list-groups
+ */
 export const getGroups = async (): Promise<Camelize<GroupSchema>[]> => {
   const api = new Groups({
     ...gitbeakerOptions,
