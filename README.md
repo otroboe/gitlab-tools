@@ -77,4 +77,7 @@ pnpm update --latest -interactive
 ```bash
 # List the groups you have access to
 pnpm show:groups
+
+# List current merge requests
+pnpm show:mrs
 ```

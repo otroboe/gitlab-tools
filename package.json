@@ -9,7 +9,8 @@
     "format:check": "prettier --list-different './**/*.{ts,js,md,json}'",
     "ls-lint": "ls-lint",
     "secret-lint": "secretlint '**/*'",
-    "show:groups": "tsx src/commands/show-groups.command.ts"
+    "show:groups": "tsx src/commands/show-groups.command.ts",
+    "show:mrs": "tsx src/commands/show-merge-requests.command.ts"
   },
   "keywords": [],
   "author": "",
