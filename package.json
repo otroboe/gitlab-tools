@@ -10,7 +10,8 @@
     "ls-lint": "ls-lint",
     "secret-lint": "secretlint '**/*'",
     "show:groups": "tsx src/commands/show-groups.command.ts",
-    "show:mrs": "tsx src/commands/show-merge-requests.command.ts"
+    "show:mrs": "tsx src/commands/show-merge-requests.command.ts",
+    "mrs:report": "tsx src/commands/merge-requests-report.command.ts"
   },
   "keywords": [],
   "author": "",
@@ -21,14 +22,14 @@
     "node": ">=24.0.0"
   },
   "devDependencies": {
-    "@gitbeaker/rest": "43.0.0",
+    "@gitbeaker/rest": "43.3.0",
     "@ls-lint/ls-lint": "2.3.1",
-    "@secretlint/secretlint-rule-preset-recommend": "10.2.0",
+    "@secretlint/secretlint-rule-preset-recommend": "10.2.1",
     "@trivago/prettier-plugin-sort-imports": "5.2.2",
-    "@types/node": "24.0.13",
+    "@types/node": "24.0.15",
     "dotenv": "17.2.0",
     "prettier": "3.6.2",
-    "secretlint": "10.2.0",
+    "secretlint": "10.2.1",
     "tsx": "4.20.3",
     "typescript": "5.8.3"
   }

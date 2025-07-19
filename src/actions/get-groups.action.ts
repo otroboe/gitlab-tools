@@ -1,14 +1,17 @@
 import { Camelize, GroupSchema, Groups } from '@gitbeaker/rest';
 
-import { gitbeakerOptions } from '@/config';
+type Options = {
+  token: string;
+};
 
 /**
  * https://docs.gitlab.com/api/groups/#list-groups
  */
-export const getGroups = async (): Promise<Camelize<GroupSchema>[]> => {
+export const getGroups = async (options: Options): Promise<Camelize<GroupSchema>[]> => {
+  const { token } = options;
   const api = new Groups({
-    ...gitbeakerOptions,
     camelize: true,
+    token,
   });
 
   try {

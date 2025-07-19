@@ -1,12 +1,12 @@
 import { Camelize, MergeRequestSchemaWithBasicLabels } from '@gitbeaker/rest';
 
-import { getGroupId, getMergeRequests } from '@/actions';
+import { getMergeRequests } from '@/actions';
+import { coreConfig } from '@/config';
 
 const handleMergeRequest = (info: Camelize<MergeRequestSchemaWithBasicLabels>) => {
   const {
     blockingDiscussionsResolved,
     detailedMergeStatus,
-    draft,
     hasConflicts,
     iid,
     mergeStatus,
@@ -14,7 +14,6 @@ const handleMergeRequest = (info: Camelize<MergeRequestSchemaWithBasicLabels>) =
     taskCompletionStatus,
     title,
     webUrl,
-    workInProgress,
   } = info;
 
   const reviewerNames = Array.isArray(reviewers) ? reviewers?.map(({ username }) => username) : [];
@@ -24,7 +23,6 @@ const handleMergeRequest = (info: Camelize<MergeRequestSchemaWithBasicLabels>) =
       {
         blockingDiscussionsResolved,
         detailedMergeStatus,
-        draft,
         hasConflicts,
         iid,
         mergeStatus,
@@ -32,7 +30,6 @@ const handleMergeRequest = (info: Camelize<MergeRequestSchemaWithBasicLabels>) =
         taskCompletionStatus,
         title,
         webUrl,
-        workInProgress,
       },
       null,
       2,
@@ -41,9 +38,11 @@ const handleMergeRequest = (info: Camelize<MergeRequestSchemaWithBasicLabels>) =
 };
 
 const execute = async () => {
-  const groupId = getGroupId();
+  const { groupId, token } = coreConfig;
+
   const mergeRequests = await getMergeRequests({
     groupId,
+    token,
   });
 
   mergeRequests.forEach((item) => {

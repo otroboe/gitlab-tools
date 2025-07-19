@@ -1,23 +1,21 @@
 import { Camelize, MergeRequestSchemaWithBasicLabels, MergeRequests } from '@gitbeaker/rest';
 
-import { gitbeakerOptions } from '@/config';
-
-type GetMergeRequestsOptions = {
+type Options = {
   groupId: number;
   scope?: 'all' | 'created_by_me' | 'assigned_to_me';
   state?: 'opened' | 'closed' | 'locked' | 'merged';
+  token: string;
   wip?: 'no';
 };
 
 /**
  * https://docs.gitlab.com/api/merge_requests/#list-merge-requests
  */
-export const getMergeRequests = async (
-  options: GetMergeRequestsOptions,
-): Promise<Camelize<MergeRequestSchemaWithBasicLabels>[]> => {
+export const getMergeRequests = async (options: Options): Promise<Camelize<MergeRequestSchemaWithBasicLabels>[]> => {
+  const { token, ...listOptions } = options;
   const api = new MergeRequests({
-    ...gitbeakerOptions,
     camelize: true,
+    token,
   });
 
   try {
@@ -25,7 +23,7 @@ export const getMergeRequests = async (
       scope: 'all',
       state: 'opened',
       wip: 'no',
-      ...options,
+      ...listOptions,
     });
   } catch (error) {
     console.log('Failed to fetch list of merge requests');
