@@ -80,4 +80,7 @@ pnpm show:groups
 
 # List current merge requests
 pnpm show:mrs
+
+# Generate Merge Request report
+pnpm mrs:report
 ```

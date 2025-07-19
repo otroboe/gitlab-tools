@@ -1,9 +1,11 @@
 import { getGroups } from '@/actions';
-import { coreConfig } from '@/config';
+import { CoreConfig, coreConfig } from '@/config';
 
-const execute = async () => {
+const execute = async (config: CoreConfig) => {
+  const { token } = config;
+
   const groups = await getGroups({
-    token: coreConfig.token,
+    token,
   });
 
   groups.forEach((group) => {
@@ -11,4 +13,4 @@ const execute = async () => {
   });
 };
 
-execute();
+execute(coreConfig);

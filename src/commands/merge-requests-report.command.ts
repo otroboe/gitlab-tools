@@ -1,54 +1,33 @@
-import { Camelize, MergeRequestSchemaWithBasicLabels } from '@gitbeaker/rest';
+import { getMergeRequests, parseMergeRequest } from '@/actions';
+import { MarkdownBuilder, MergeRequest, formatDate, formatTime } from '@/common';
+import { CoreConfig, coreConfig } from '@/config';
 
-import { getMergeRequests } from '@/actions';
-import { MergeRequest } from '@/common';
-import { coreConfig } from '@/config';
+const generateFileName = () => {
+  const now = new Date();
 
-const handleMergeRequest = (
-  info: Camelize<MergeRequestSchemaWithBasicLabels>,
-  mrMinReviewers: number,
-): MergeRequest => {
-  const {
-    blockingDiscussionsResolved: hasNoUnresolvedDiscussions,
-    detailedMergeStatus: detailedStatus,
-    hasConflicts,
-    iid,
-    mergeStatus,
-    reviewers,
-    taskCompletionStatus,
-    title,
-    webUrl: url,
-  } = info;
-
-  const hasChecklistDone = taskCompletionStatus
-    ? taskCompletionStatus?.completedCount === taskCompletionStatus?.count
-    : null;
-  const hasEnoughReviewers = Array.isArray(reviewers) ? reviewers.length >= mrMinReviewers : false;
-
-  return {
-    canBeMerged: mergeStatus === 'can_be_merged',
-    detailedStatus,
-    hasChecklistDone,
-    hasEnoughReviewers,
-    hasNoConflicts: !hasConflicts,
-    hasNoUnresolvedDiscussions,
-    iid,
-    title,
-    url,
-  };
+  return `merge-requests_${formatDate(now)}_${formatTime(now)}`;
 };
 
-const execute = async () => {
-  const { groupId, mrMinReviewers, token } = coreConfig;
+const execute = async (config: CoreConfig) => {
+  const { groupId, mrMinReviewers, token, reportsDirectory } = config;
 
   const mergeRequests = await getMergeRequests({
     groupId,
     token,
   });
 
-  const list = mergeRequests.map((item) => handleMergeRequest(item, mrMinReviewers));
+  const list = mergeRequests.map((item) => parseMergeRequest(item, mrMinReviewers));
 
-  console.log(JSON.stringify({ list }, null, 2));
+  const builder = new MarkdownBuilder({
+    fileDirectory: reportsDirectory,
+    fileName: generateFileName(),
+  });
+
+  list.forEach((mr: MergeRequest) => {
+    builder.addListItem(`[${mr.title}](${mr.url})`);
+  });
+
+  await builder.save();
 };
 
-execute();
+execute(coreConfig);

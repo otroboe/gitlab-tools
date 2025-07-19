@@ -3,7 +3,7 @@ import { Nullable } from '@/common';
 export type MergeRequest = Nullable<{
   canBeMerged: boolean;
   detailedStatus: string;
-  hasChecklistDone: boolean | null;
+  hasChecklistDone: boolean;
   hasEnoughReviewers: boolean;
   hasNoConflicts: boolean;
   hasNoUnresolvedDiscussions: boolean;
