@@ -26,7 +26,7 @@ export const getMergeRequests = async (options: Options): Promise<Camelize<Merge
       ...listOptions,
     });
   } catch (error) {
-    console.log('Failed to fetch list of merge requests');
+    console.error('\n', 'Failed to fetch list of merge requests', '\n');
     return [];
   }
 };

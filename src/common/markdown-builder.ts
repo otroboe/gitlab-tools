@@ -26,5 +26,17 @@ export class MarkdownBuilder {
 
   addListItem(item: string) {
     this.content += `\n- ${item}`;
+    return this;
+  }
+
+  addNestedListItem(item: string, level: number = 1) {
+    const indent = '  '.repeat(level);
+    this.content += `\n${indent}- ${item}`;
+    return this;
+  }
+
+  addSameLineItem(item: string) {
+    this.content += ` ${item}`;
+    return this;
   }
 }

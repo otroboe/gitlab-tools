@@ -8,6 +8,7 @@ export type MergeRequest = Nullable<{
   hasNoConflicts: boolean;
   hasNoUnresolvedDiscussions: boolean;
   iid: number;
+  repositoryName: string;
   title: string;
   url: string;
 }>;
