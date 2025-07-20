@@ -1,10 +1,10 @@
-import { getGroups } from '@/actions';
+import { fetchGroups } from '@/actions';
 import { CoreConfig, coreConfig } from '@/config';
 
 const execute = async (config: CoreConfig) => {
   const { token } = config;
 
-  const groups = await getGroups({
+  const groups = await fetchGroups({
     token,
   });
 

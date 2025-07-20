@@ -11,7 +11,7 @@ type Options = {
 /**
  * https://docs.gitlab.com/api/merge_requests/#list-merge-requests
  */
-export const getMergeRequests = async (options: Options): Promise<Camelize<MergeRequestSchemaWithBasicLabels>[]> => {
+export const fetchMergeRequests = async (options: Options): Promise<Camelize<MergeRequestSchemaWithBasicLabels>[]> => {
   const { token, ...listOptions } = options;
   const api = new MergeRequests({
     camelize: true,

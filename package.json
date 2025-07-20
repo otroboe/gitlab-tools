@@ -11,7 +11,8 @@
     "secret-lint": "secretlint '**/*'",
     "show:groups": "tsx src/commands/show-groups.command.ts",
     "show:mrs": "tsx src/commands/show-merge-requests.command.ts",
-    "mrs:report": "tsx src/commands/merge-requests-report.command.ts"
+    "mrs:report": "tsx src/commands/merge-requests-report.command.ts",
+    "debug": "tsx src/commands/debug.command.ts"
   },
   "keywords": [],
   "author": "",

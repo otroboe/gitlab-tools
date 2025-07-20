@@ -1,10 +1,10 @@
-import { getMergeRequests, logMergeRequest } from '@/actions';
+import { fetchMergeRequests, logMergeRequest } from '@/actions';
 import { CoreConfig, coreConfig } from '@/config';
 
 const execute = async (config: CoreConfig) => {
   const { groupId, token } = config;
 
-  const mergeRequests = await getMergeRequests({
+  const mergeRequests = await fetchMergeRequests({
     groupId,
     token,
   });

@@ -7,7 +7,7 @@ type Options = {
 /**
  * https://docs.gitlab.com/api/groups/#list-groups
  */
-export const getGroups = async (options: Options): Promise<Camelize<GroupSchema>[]> => {
+export const fetchGroups = async (options: Options): Promise<Camelize<GroupSchema>[]> => {
   const { token } = options;
   const api = new Groups({
     camelize: true,

@@ -1,42 +1,19 @@
-import { getMergeRequests, parseMergeRequest } from '@/actions';
-import { MarkdownBuilder, MergeRequest, formatDate, formatTime } from '@/common';
+import { generateReportFilename, getStatusEmoji } from '@/actions';
+import { MarkdownBuilder, MergeRequest, Stopwatch } from '@/common';
 import { CoreConfig, coreConfig } from '@/config';
-
-const prepareMergeRequests = async (config: CoreConfig): Promise<MergeRequest[]> => {
-  const { groupId, mrMinReviewers, token } = config;
-
-  const mergeRequests = await getMergeRequests({
-    groupId,
-    token,
-  });
-
-  const list = mergeRequests.map((item) => parseMergeRequest(item, mrMinReviewers));
-
-  // Sort Alpha
-  return list.toSorted((a, b) => {
-    if (a.title && b.title) {
-      return a.title.localeCompare(b.title);
-    }
-
-    return 0;
-  });
-};
-
-const generateFileName = () => {
-  const now = new Date();
-
-  return `merge-requests_${formatDate(now)}_${formatTime(now)}`;
-};
-
-const getEmoji = (value: boolean | null): string => {
-  return !!value ? '✅' : '❌';
-};
+import { getMergeRequestSonarStatus, getParsedMergeRequests } from '@/use-cases';
 
 const execute = async (config: CoreConfig) => {
-  const { reportsDirectory } = config;
+  const sw = new Stopwatch();
+  const { reportsDirectory, token } = config;
 
-  const list = await prepareMergeRequests(config);
-  const fileName = generateFileName();
+  const list = await getParsedMergeRequests(config);
+
+  for (const mergeRequest of list) {
+    mergeRequest.hasSonarApproval = await getMergeRequestSonarStatus({ token, mergeRequest });
+  }
+
+  const fileName = generateReportFilename('merge-requests');
 
   const builder = new MarkdownBuilder({
     fileDirectory: reportsDirectory,
@@ -47,17 +24,18 @@ const execute = async (config: CoreConfig) => {
     builder
       .addListItem(`[${mr.title}](${mr.url})`)
       .addNestedListItem(`\`${mr.repositoryName}\` -`)
-      .addSameLineItem(`reviewers ${getEmoji(mr.hasEnoughReviewers)}`)
-      .addSameLineItem(`discussions ${getEmoji(mr.hasNoUnresolvedDiscussions)}`)
-      .addSameLineItem(`conflicts ${getEmoji(mr.hasNoConflicts)}`)
-      .addSameLineItem(`checklist ${getEmoji(mr.hasChecklistDone)}`);
-    // .addSameLineItem(`mergeable ${getEmoji(mr.canBeMerged)}`)
+      .addSameLineItem(`reviewers ${getStatusEmoji(mr.hasEnoughReviewers)}`)
+      .addSameLineItem(`discussions ${getStatusEmoji(mr.hasNoUnresolvedDiscussions)}`)
+      .addSameLineItem(`sonar ${getStatusEmoji(mr.hasSonarApproval)}`)
+      .addSameLineItem(`conflicts ${getStatusEmoji(mr.hasNoConflicts)}`)
+      .addSameLineItem(`checklist ${getStatusEmoji(mr.hasChecklistDone)}`);
+    // .addSameLineItem(`mergeable ${getStatusEmoji(mr.canBeMerged)}`)
     // .addSameLineItem(`status \`${mr.detailedStatus}\``);
   });
 
   await builder.save();
 
-  console.log('\n', `Report file generated: ${fileName}`, '\n');
+  console.log('\n', 'Report file generated', `in ${sw.getElapsedSeconds()} seconds`, '\n');
 };
 
 execute(coreConfig);
