@@ -1,6 +1,9 @@
 import { getStatusEmoji } from '@/actions/get-status-emoji.action';
 import { MarkdownBuilder, MergeRequest } from '@/common';
 
+/**
+ * Mostly for debugging, we want to print the most info we have
+ */
 export const addMergeRequestInfoToReport = (builder: MarkdownBuilder, mr: MergeRequest): void => {
   builder
     .addListItem(`[${mr.title}](${mr.url})`)

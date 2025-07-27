@@ -1,4 +1,4 @@
-import { addMergeRequestInfoToReport, generateReportFilename } from '@/actions';
+import { addMergeRequestInfoToReport, generateReportFilename, getStatusEmoji } from '@/actions';
 import { CategorizedMergeRequests, MarkdownBuilder, MergeRequest, MergeRequestCategory } from '@/common';
 import { CoreConfig } from '@/config';
 
@@ -10,7 +10,9 @@ const writeReadyToReviewSection = (builder: MarkdownBuilder, list: MergeRequest[
   builder.addTitle('Ready to Review');
 
   list.forEach((mr) => {
-    addMergeRequestInfoToReport(builder, mr);
+    builder.addListItem(`[${mr.title}](${mr.url})`);
+
+    // TODO - Add reviewers who didn't review
   });
 };
 
@@ -22,10 +24,39 @@ const writeNeedAttentionSection = (builder: MarkdownBuilder, list: MergeRequest[
   builder.addTitle('Need Attention');
 
   list.forEach((mr) => {
-    addMergeRequestInfoToReport(builder, mr);
+    builder.addListItem(`[${mr.title}](${mr.url})`).addNestedListItem('');
+
+    if (mr.hasEnoughReviewers === false) {
+      builder.addSameLineItem(`reviewers ${getStatusEmoji(mr.hasEnoughReviewers)}`);
+    }
+
+    if (mr.hasNoUnresolvedDiscussions === false) {
+      builder.addSameLineItem(`discussions ${getStatusEmoji(mr.hasNoUnresolvedDiscussions)}`);
+    }
+
+    if (mr.hasSonarApproval === false) {
+      builder.addSameLineItem(`sonar ${getStatusEmoji(mr.hasSonarApproval)}`);
+    }
+
+    if (mr.hasNoConflicts === false) {
+      builder.addSameLineItem(`conflicts ${getStatusEmoji(mr.hasNoConflicts)}`);
+    }
+
+    if (mr.hasChecklistDone === false) {
+      builder.addSameLineItem(`checklist ${getStatusEmoji(mr.hasChecklistDone)}`);
+    }
+
+    if (mr.isRebased === false) {
+      builder.addSameLineItem(`rebased ${getStatusEmoji(mr.isRebased)}`);
+    }
+
+    // TOD0 - Add author
   });
 };
 
+/**
+ * Should not happen, so we display everything we know about the MR
+ */
 const writeNeedUnknownSection = (builder: MarkdownBuilder, list: MergeRequest[]) => {
   if (list.length === 0) {
     return;
