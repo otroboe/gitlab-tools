@@ -24,12 +24,21 @@ export class MarkdownBuilder {
     }
   }
 
+  addTitle(title: string, level = 3) {
+    const prefix = this.content.length !== 0 ? `\n\n` : '';
+    const hash = '#'.repeat(level);
+
+    this.content += `${prefix}${hash} ${title}\n`;
+
+    return this;
+  }
+
   addListItem(item: string) {
     this.content += `\n- ${item}`;
     return this;
   }
 
-  addNestedListItem(item: string, level: number = 1) {
+  addNestedListItem(item: string, level = 1) {
     const indent = '  '.repeat(level);
     this.content += `\n${indent}- ${item}`;
     return this;

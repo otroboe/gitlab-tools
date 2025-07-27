@@ -26,6 +26,7 @@ export const parseMergeRequest = (
     webUrl: url,
   } = info;
 
+  const isRebased = (detailedStatus as string) !== 'need_rebase';
   const hasChecklistDone = taskCompletionStatus
     ? taskCompletionStatus?.completedCount === taskCompletionStatus?.count
     : null;
@@ -41,6 +42,7 @@ export const parseMergeRequest = (
     hasNoUnresolvedDiscussions,
     hasSonarApproval: null,
     iid,
+    isRebased,
     projectId,
     repositoryName,
     title,

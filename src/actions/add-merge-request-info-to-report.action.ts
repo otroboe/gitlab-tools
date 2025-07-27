@@ -1,0 +1,16 @@
+import { getStatusEmoji } from '@/actions/get-status-emoji.action';
+import { MarkdownBuilder, MergeRequest } from '@/common';
+
+export const addMergeRequestInfoToReport = (builder: MarkdownBuilder, mr: MergeRequest): void => {
+  builder
+    .addListItem(`[${mr.title}](${mr.url})`)
+    .addNestedListItem(`\`${mr.repositoryName}\` -`)
+    .addSameLineItem(`reviewers ${getStatusEmoji(mr.hasEnoughReviewers)}`)
+    .addSameLineItem(`discussions ${getStatusEmoji(mr.hasNoUnresolvedDiscussions)}`)
+    .addSameLineItem(`sonar ${getStatusEmoji(mr.hasSonarApproval)}`)
+    .addSameLineItem(`conflicts ${getStatusEmoji(mr.hasNoConflicts)}`)
+    .addSameLineItem(`checklist ${getStatusEmoji(mr.hasChecklistDone)}`)
+    .addSameLineItem(`rebased ${getStatusEmoji(mr.isRebased)}`)
+    .addSameLineItem(`mergeable ${getStatusEmoji(mr.canBeMerged)}`)
+    .addSameLineItem(`status \`${mr.detailedStatus}\``);
+};

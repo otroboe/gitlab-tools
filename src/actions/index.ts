@@ -1,3 +1,5 @@
+export * from './add-merge-request-info-to-report.action';
+export * from './categorize-merge-requests.action';
 export * from './fetch-groups.action';
 export * from './fetch-merge-request-discussions.action';
 export * from './fetch-merge-requests.action';
