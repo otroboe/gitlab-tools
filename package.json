@@ -4,14 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "check:all": "pnpm ls-lint && pnpm secret-lint && pnpm format:check",
+    "check:all": "pnpm ls-lint && pnpm secret-lint && pnpm format:check && pnpm knip",
     "format": "prettier --write './**/*.{ts,js,md,json}'",
     "format:check": "prettier --list-different './**/*.{ts,js,md,json}'",
     "ls-lint": "ls-lint",
     "secret-lint": "secretlint '**/*'",
+    "knip": "knip",
     "show:groups": "tsx src/commands/show-groups.command.ts",
     "show:mrs": "tsx src/commands/show-merge-requests.command.ts",
-    "mrs:report": "tsx src/commands/merge-requests-report.command.ts",
+    "mr:report": "tsx src/commands/merge-requests-report.command.ts",
     "debug": "tsx src/commands/debug.command.ts"
   },
   "keywords": [],
@@ -22,13 +23,22 @@
   "engines": {
     "node": ">=24.0.0"
   },
+  "knip": {
+    "project": [
+      "src/**/*.ts"
+    ],
+    "ignoreDependencies": [
+      "@secretlint/secretlint-rule-preset-recommend"
+    ]
+  },
   "devDependencies": {
     "@gitbeaker/rest": "43.3.0",
     "@ls-lint/ls-lint": "2.3.1",
     "@secretlint/secretlint-rule-preset-recommend": "10.2.1",
     "@trivago/prettier-plugin-sort-imports": "5.2.2",
-    "@types/node": "24.0.15",
-    "dotenv": "17.2.0",
+    "@types/node": "24.1.0",
+    "dotenv": "17.2.1",
+    "knip": "5.62.0",
     "prettier": "3.6.2",
     "secretlint": "10.2.1",
     "tsx": "4.20.3",

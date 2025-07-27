@@ -5,6 +5,7 @@ dotenv.config({ quiet: true });
 const currentDirectory = process.cwd();
 
 export type CoreConfig = {
+  baseApiUrl: string;
   groupId: number;
   mrMinReviewers: number;
   reportsDirectory: string;
@@ -12,8 +13,9 @@ export type CoreConfig = {
 };
 
 export const coreConfig: CoreConfig = {
+  baseApiUrl: 'https://gitlab.com/api/v4',
   groupId: parseInt(process.env.GITLAB_DEFAULT_GROUP_ID, 10),
   mrMinReviewers: parseInt(process.env.MR_MIN_REVIEWERS, 10),
-  token: process.env.GITLAB_TOKEN,
   reportsDirectory: `${currentDirectory}/reports`,
+  token: process.env.GITLAB_TOKEN,
 };

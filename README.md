@@ -34,7 +34,7 @@ cp .env.example .env
 pnpm check:all
 
 # Upgrade deps
-pnpm update --latest -interactive
+pnpm update --latest -E -interactive
 ```
 
 ## Recommended VSCode settings
@@ -81,6 +81,6 @@ pnpm show:groups
 # List current merge requests
 pnpm show:mrs
 
-# Generate merge request report
-pnpm mrs:report
+# Generate merge requests report
+pnpm mr:report
 ```
