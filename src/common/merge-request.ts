@@ -1,6 +1,7 @@
 import { Nullable } from '@/common';
 
 export type MergeRequest = Nullable<{
+  author: string;
   canBeMerged: boolean;
   detailedStatus: string;
   hasChecklistDone: boolean;
@@ -12,6 +13,7 @@ export type MergeRequest = Nullable<{
   isRebased: boolean;
   projectId: number;
   repositoryName: string;
+  reviewers: string[];
   title: string;
   url: string;
 }>;

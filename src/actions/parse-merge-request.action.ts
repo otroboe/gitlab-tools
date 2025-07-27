@@ -13,6 +13,7 @@ export const parseMergeRequest = (
   mrMinReviewers: number,
 ): MergeRequest => {
   const {
+    author,
     blockingDiscussionsResolved: hasNoUnresolvedDiscussions,
     detailedMergeStatus: detailedStatus,
     hasConflicts,
@@ -20,7 +21,7 @@ export const parseMergeRequest = (
     mergeStatus,
     projectId,
     references,
-    reviewers,
+    reviewers: reviewerCollection,
     taskCompletionStatus,
     title,
     webUrl: url,
@@ -30,14 +31,15 @@ export const parseMergeRequest = (
   const hasChecklistDone = taskCompletionStatus
     ? taskCompletionStatus?.completedCount === taskCompletionStatus?.count
     : null;
-  const hasEnoughReviewers = Array.isArray(reviewers) ? reviewers.length >= mrMinReviewers : false;
+  const reviewers = Array.isArray(reviewerCollection) ? reviewerCollection?.map(({ username }) => username) : [];
   const repositoryName = extractRepositoryName(references);
 
   return {
+    author: author.username,
     canBeMerged: mergeStatus === 'can_be_merged',
     detailedStatus,
     hasChecklistDone,
-    hasEnoughReviewers,
+    hasEnoughReviewers: reviewers.length >= mrMinReviewers,
     hasNoConflicts: !hasConflicts,
     hasNoUnresolvedDiscussions,
     hasSonarApproval: null,
@@ -45,6 +47,7 @@ export const parseMergeRequest = (
     isRebased,
     projectId,
     repositoryName,
+    reviewers,
     title,
     url,
   };

@@ -2,6 +2,7 @@ import { Camelize, MergeRequestSchemaWithBasicLabels } from '@gitbeaker/rest';
 
 export const logMergeRequest = (info: Camelize<MergeRequestSchemaWithBasicLabels>) => {
   const {
+    author,
     blockingDiscussionsResolved,
     detailedMergeStatus,
     hasConflicts,
@@ -20,6 +21,7 @@ export const logMergeRequest = (info: Camelize<MergeRequestSchemaWithBasicLabels
   console.log(
     JSON.stringify(
       {
+        author: author.username,
         blockingDiscussionsResolved,
         detailedMergeStatus,
         hasConflicts,

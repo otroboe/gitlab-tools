@@ -10,6 +10,7 @@ const writeReadyToReviewSection = (builder: MarkdownBuilder, list: MergeRequest[
   builder.addTitle('Ready to Review');
 
   list.forEach((mr) => {
+    // addMergeRequestInfoToReport(builder, mr);
     builder.addListItem(`[${mr.title}](${mr.url})`);
 
     // TODO - Add reviewers who didn't review
@@ -24,7 +25,7 @@ const writeNeedAttentionSection = (builder: MarkdownBuilder, list: MergeRequest[
   builder.addTitle('Need Attention');
 
   list.forEach((mr) => {
-    builder.addListItem(`[${mr.title}](${mr.url})`).addNestedListItem('');
+    builder.addListItem(`[${mr.title}](${mr.url})`).addNestedListItem(`\`${mr.author}\` -`);
 
     if (mr.hasEnoughReviewers === false) {
       builder.addSameLineItem(`reviewers ${getStatusEmoji(mr.hasEnoughReviewers)}`);

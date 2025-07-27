@@ -8,6 +8,8 @@ export const addMergeRequestInfoToReport = (builder: MarkdownBuilder, mr: MergeR
   builder
     .addListItem(`[${mr.title}](${mr.url})`)
     .addNestedListItem(`\`${mr.repositoryName}\` -`)
+    .addSameLineItem(`from \`${mr.author}\` -`)
+    .addSameLineItem(`to \`${mr.reviewers?.join(', ')}\` -`)
     .addSameLineItem(`reviewers ${getStatusEmoji(mr.hasEnoughReviewers)}`)
     .addSameLineItem(`discussions ${getStatusEmoji(mr.hasNoUnresolvedDiscussions)}`)
     .addSameLineItem(`sonar ${getStatusEmoji(mr.hasSonarApproval)}`)
