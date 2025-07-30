@@ -1,16 +1,15 @@
-import { categorizeMergeRequests } from '@/actions';
+import { categorizeMergeRequests, getMergeRequestReviewers } from '@/actions';
 import { Stopwatch } from '@/common';
 import { CoreConfig, coreConfig } from '@/config';
 import { buildMergeRequestReport, getMergeRequestSonarStatus, getParsedMergeRequests } from '@/use-cases';
 
 const execute = async (config: CoreConfig) => {
   const sw = new Stopwatch();
-  const { token } = config;
-
   const list = await getParsedMergeRequests(config);
 
-  for (const mergeRequest of list) {
-    mergeRequest.hasSonarApproval = await getMergeRequestSonarStatus({ token, mergeRequest });
+  for (const mr of list) {
+    mr.hasSonarApproval = await getMergeRequestSonarStatus(config, mr);
+    mr.reviewers = await getMergeRequestReviewers(config, mr);
   }
 
   const categorized = categorizeMergeRequests(list);

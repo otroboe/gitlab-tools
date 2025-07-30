@@ -84,3 +84,8 @@ pnpm show:mrs
 # Generate merge requests report
 pnpm mr:report
 ```
+
+## Possible TODO next
+
+- Debug mode for the `mr:report`, showing most info we have.
+- Helper command to remove all generated report file

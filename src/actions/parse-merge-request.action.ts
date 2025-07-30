@@ -1,6 +1,6 @@
 import { Camelize, MergeRequestSchemaWithBasicLabels, ReferenceSchema } from '@gitbeaker/rest';
 
-import { MergeRequest } from '@/common';
+import { MergeRequest, MergeRequestReviewer } from '@/common';
 
 const extractRepositoryName = (references: Camelize<ReferenceSchema>): string | null => {
   const match = references.full.match(/([^/!]+)!\d+$/);
@@ -31,7 +31,9 @@ export const parseMergeRequest = (
   const hasChecklistDone = taskCompletionStatus
     ? taskCompletionStatus?.completedCount === taskCompletionStatus?.count
     : null;
-  const reviewers = Array.isArray(reviewerCollection) ? reviewerCollection?.map(({ username }) => username) : [];
+  const reviewers: MergeRequestReviewer[] = Array.isArray(reviewerCollection)
+    ? reviewerCollection?.map(({ username }) => ({ username }))
+    : [];
   const repositoryName = extractRepositoryName(references);
 
   return {

@@ -1,5 +1,10 @@
 import { Nullable } from '@/common';
 
+export type MergeRequestReviewer = {
+  username: string;
+  state?: string;
+};
+
 export type MergeRequest = Nullable<{
   author: string;
   canBeMerged: boolean;
@@ -13,7 +18,7 @@ export type MergeRequest = Nullable<{
   isRebased: boolean;
   projectId: number;
   repositoryName: string;
-  reviewers: string[];
+  reviewers: MergeRequestReviewer[];
   title: string;
   url: string;
 }>;

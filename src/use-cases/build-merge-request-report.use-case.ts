@@ -1,4 +1,4 @@
-import { addMergeRequestInfoToReport, generateReportFilename, getStatusEmoji } from '@/actions';
+import { addMergeRequestInfoToReport, addReviewersToReport, generateReportFilename, getStatusEmoji } from '@/actions';
 import { CategorizedMergeRequests, MarkdownBuilder, MergeRequest, MergeRequestCategory } from '@/common';
 import { CoreConfig } from '@/config';
 
@@ -10,10 +10,8 @@ const writeReadyToReviewSection = (builder: MarkdownBuilder, list: MergeRequest[
   builder.addTitle('Ready to Review');
 
   list.forEach((mr) => {
-    // addMergeRequestInfoToReport(builder, mr);
     builder.addListItem(`[${mr.title}](${mr.url})`);
-
-    // TODO - Add reviewers who didn't review
+    addReviewersToReport(builder, mr);
   });
 };
 
@@ -25,7 +23,7 @@ const writeNeedAttentionSection = (builder: MarkdownBuilder, list: MergeRequest[
   builder.addTitle('Need Attention');
 
   list.forEach((mr) => {
-    builder.addListItem(`[${mr.title}](${mr.url})`).addNestedListItem(`\`${mr.author}\` -`);
+    builder.addListItem(`[${mr.title}](${mr.url})`).addNestedListItem(`From \`${mr.author}\` -`);
 
     if (mr.hasEnoughReviewers === false) {
       builder.addSameLineItem(`reviewers ${getStatusEmoji(mr.hasEnoughReviewers)}`);
@@ -50,8 +48,6 @@ const writeNeedAttentionSection = (builder: MarkdownBuilder, list: MergeRequest[
     if (mr.isRebased === false) {
       builder.addSameLineItem(`rebased ${getStatusEmoji(mr.isRebased)}`);
     }
-
-    // TOD0 - Add author
   });
 };
 

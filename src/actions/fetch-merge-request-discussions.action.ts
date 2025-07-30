@@ -1,17 +1,14 @@
 import { Camelize, DiscussionSchema, MergeRequestDiscussions } from '@gitbeaker/rest';
 
 import { MergeRequest } from '@/common';
+import { CoreConfig } from '@/config';
 
-type Options = {
-  token: string;
-  mergeRequest: MergeRequest;
-};
-
-export const fetchMergeRequestDiscussions = async (options: Options): Promise<Camelize<DiscussionSchema>[]> => {
-  const {
-    token,
-    mergeRequest: { iid, projectId },
-  } = options;
+export const fetchMergeRequestDiscussions = async (
+  config: CoreConfig,
+  mr: MergeRequest,
+): Promise<Camelize<DiscussionSchema>[]> => {
+  const { token } = config;
+  const { iid, projectId } = mr;
 
   if (!token || !projectId || !iid) {
     console.error('🚨', 'Invalid options provided for fetching merge request discussions', '\n');
