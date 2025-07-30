@@ -2,7 +2,7 @@ import { addMergeRequestInfoToReport, addReviewersToReport, generateReportFilena
 import { CategorizedMergeRequests, MarkdownBuilder, MergeRequest, MergeRequestCategory } from '@/common';
 import { CoreConfig } from '@/config';
 
-const writeReadyToReviewSection = (builder: MarkdownBuilder, list: MergeRequest[]) => {
+const writeReadyToReviewSection = (builder: MarkdownBuilder, list: MergeRequest[], isDebug = false) => {
   if (list.length === 0) {
     return;
   }
@@ -10,12 +10,17 @@ const writeReadyToReviewSection = (builder: MarkdownBuilder, list: MergeRequest[
   builder.addTitle('Ready to Review');
 
   list.forEach((mr) => {
+    if (isDebug) {
+      addMergeRequestInfoToReport(builder, mr);
+      return;
+    }
+
     builder.addListItem(`[${mr.title}](${mr.url})`);
     addReviewersToReport(builder, mr);
   });
 };
 
-const writeNeedAttentionSection = (builder: MarkdownBuilder, list: MergeRequest[]) => {
+const writeNeedAttentionSection = (builder: MarkdownBuilder, list: MergeRequest[], isDebug = false) => {
   if (list.length === 0) {
     return;
   }
@@ -23,6 +28,12 @@ const writeNeedAttentionSection = (builder: MarkdownBuilder, list: MergeRequest[
   builder.addTitle('Need Attention');
 
   list.forEach((mr) => {
+    if (isDebug) {
+      addMergeRequestInfoToReport(builder, mr);
+      addReviewersToReport(builder, mr);
+      return;
+    }
+
     builder.addListItem(`[${mr.title}](${mr.url})`).addNestedListItem(`From \`${mr.author}\` -`);
 
     if (mr.hasEnoughReviewers === false) {
@@ -54,7 +65,7 @@ const writeNeedAttentionSection = (builder: MarkdownBuilder, list: MergeRequest[
 /**
  * Should not happen, so we display everything we know about the MR
  */
-const writeNeedUnknownSection = (builder: MarkdownBuilder, list: MergeRequest[]) => {
+const writeNeedUnknownSection = (builder: MarkdownBuilder, list: MergeRequest[], isDebug = false) => {
   if (list.length === 0) {
     return;
   }
@@ -63,10 +74,14 @@ const writeNeedUnknownSection = (builder: MarkdownBuilder, list: MergeRequest[])
 
   list.forEach((mr) => {
     addMergeRequestInfoToReport(builder, mr);
+
+    if (isDebug) {
+      addReviewersToReport(builder, mr);
+    }
   });
 };
 
-export const buildMergeRequestReport = async (config: CoreConfig, list: CategorizedMergeRequests) => {
+export const buildMergeRequestReport = async (config: CoreConfig, list: CategorizedMergeRequests, isDebug = false) => {
   const { reportsDirectory } = config;
   const fileName = generateReportFilename('merge-requests');
 
@@ -75,9 +90,9 @@ export const buildMergeRequestReport = async (config: CoreConfig, list: Categori
     fileName,
   });
 
-  writeReadyToReviewSection(builder, list[MergeRequestCategory.READY_TO_REVIEW]);
-  writeNeedAttentionSection(builder, list[MergeRequestCategory.NEED_ATTENTION]);
-  writeNeedUnknownSection(builder, list[MergeRequestCategory.UNKNOWN]);
+  writeReadyToReviewSection(builder, list[MergeRequestCategory.READY_TO_REVIEW], isDebug);
+  writeNeedAttentionSection(builder, list[MergeRequestCategory.NEED_ATTENTION], isDebug);
+  writeNeedUnknownSection(builder, list[MergeRequestCategory.UNKNOWN], isDebug);
 
   await builder.save();
 };
