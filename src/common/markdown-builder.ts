@@ -33,6 +33,12 @@ export class MarkdownBuilder {
     return this;
   }
 
+  addBoldItalicTitle(item: string) {
+    const prefix = this.content.length !== 0 ? `\n\n` : '';
+    this.content += `${prefix}***${item}***\n`;
+    return this;
+  }
+
   addListItem(item: string) {
     this.content += `\n- ${item}`;
     return this;

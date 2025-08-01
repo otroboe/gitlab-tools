@@ -88,3 +88,8 @@ pnpm mr:report --debug
 # Cleanup report directory
 pnpm cleanup:report
 ```
+
+## Ideas
+
+- Mapping for Gitlab username / Slack username
+- Scan for JIRA ticket number

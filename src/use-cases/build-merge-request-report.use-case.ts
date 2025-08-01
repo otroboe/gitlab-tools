@@ -7,7 +7,7 @@ const writeReadyToReviewSection = (builder: MarkdownBuilder, list: MergeRequest[
     return;
   }
 
-  builder.addTitle('Ready to Review');
+  builder.addBoldItalicTitle('Ready to Review');
 
   list.forEach((mr) => {
     if (isDebug) {
@@ -25,7 +25,7 @@ const writeNeedAttentionSection = (builder: MarkdownBuilder, list: MergeRequest[
     return;
   }
 
-  builder.addTitle('Need Attention');
+  builder.addBoldItalicTitle('Need Attention');
 
   list.forEach((mr) => {
     if (isDebug) {
@@ -70,7 +70,7 @@ const writeNeedUnknownSection = (builder: MarkdownBuilder, list: MergeRequest[],
     return;
   }
 
-  builder.addTitle('Not enough info');
+  builder.addBoldItalicTitle('Not enough info');
 
   list.forEach((mr) => {
     addMergeRequestInfoToReport(builder, mr);

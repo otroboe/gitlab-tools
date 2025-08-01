@@ -7,7 +7,7 @@ export const addReviewersToReport = (builder: MarkdownBuilder, mr: MergeRequest)
     return;
   }
 
-  builder.addNestedListItem('Missing review from: ');
+  builder.addNestedListItem('Missing review from:');
 
   reviewers?.forEach((reviewer) => {
     if (reviewer.state === 'unreviewed') {
