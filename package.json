@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "check:all": "pnpm ls-lint && pnpm secret-lint && pnpm format:check && pnpm knip",
+    "check": "pnpm ls-lint && pnpm secret-lint && pnpm format:check && pnpm knip",
     "format": "prettier --write './**/*.{ts,js,md,json}'",
     "format:check": "prettier --list-different './**/*.{ts,js,md,json}'",
     "ls-lint": "ls-lint",
@@ -20,7 +20,7 @@
   "author": "",
   "license": "ISC",
   "type": "module",
-  "packageManager": "pnpm@10.13.1",
+  "packageManager": "pnpm@10.14.0",
   "engines": {
     "node": ">=24.0.0"
   },
@@ -33,15 +33,15 @@
     ]
   },
   "devDependencies": {
-    "@gitbeaker/rest": "43.3.0",
+    "@gitbeaker/rest": "43.4.0",
     "@ls-lint/ls-lint": "2.3.1",
-    "@secretlint/secretlint-rule-preset-recommend": "10.2.1",
+    "@secretlint/secretlint-rule-preset-recommend": "10.2.2",
     "@trivago/prettier-plugin-sort-imports": "5.2.2",
-    "@types/node": "24.1.0",
+    "@types/node": "24.2.1",
     "dotenv": "17.2.1",
     "knip": "5.62.0",
     "prettier": "3.6.2",
-    "secretlint": "10.2.1",
+    "secretlint": "10.2.2",
     "tsx": "4.20.3",
     "typescript": "5.9.2"
   }

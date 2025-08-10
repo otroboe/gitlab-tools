@@ -31,10 +31,13 @@ cp .env.example .env
 
 ```bash
 # Check sanity
-pnpm check:all
+pnpm check
 
 # Upgrade deps
 pnpm update --latest -E -interactive
+
+# Update to latest pnpm version
+corepack use pnpm@latest
 ```
 
 ## Recommended VSCode settings
