@@ -35,14 +35,14 @@
   "devDependencies": {
     "@gitbeaker/rest": "43.4.0",
     "@ls-lint/ls-lint": "2.3.1",
-    "@secretlint/secretlint-rule-preset-recommend": "10.2.2",
+    "@secretlint/secretlint-rule-preset-recommend": "11.0.2",
     "@trivago/prettier-plugin-sort-imports": "5.2.2",
     "@types/node": "24.2.1",
     "dotenv": "17.2.1",
     "knip": "5.62.0",
     "prettier": "3.6.2",
-    "secretlint": "10.2.2",
-    "tsx": "4.20.3",
+    "secretlint": "11.0.2",
+    "tsx": "4.20.4",
     "typescript": "5.9.2"
   }
 }
