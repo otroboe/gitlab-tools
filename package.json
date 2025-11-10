@@ -19,7 +19,7 @@
   "author": "",
   "license": "ISC",
   "type": "module",
-  "packageManager": "pnpm@10.19.0",
+  "packageManager": "pnpm@10.21.0+sha512.da3337267e400fdd3d479a6c68079ac6db01d8ca4f67572083e722775a796788a7a9956613749e000fac20d424b594f7a791a5f4e2e13581c5ef947f26968a40",
   "engines": {
     "node": ">=24.0.0"
   },
@@ -32,13 +32,13 @@
     ]
   },
   "devDependencies": {
-    "@gitbeaker/rest": "43.5.0",
+    "@gitbeaker/rest": "43.8.0",
     "@ls-lint/ls-lint": "2.3.1",
     "@secretlint/secretlint-rule-preset-recommend": "11.2.5",
-    "@trivago/prettier-plugin-sort-imports": "5.2.2",
-    "@types/node": "24.9.1",
+    "@trivago/prettier-plugin-sort-imports": "6.0.0",
+    "@types/node": "24.10.0",
     "dotenv": "17.2.3",
-    "knip": "5.66.2",
+    "knip": "5.68.0",
     "prettier": "3.6.2",
     "secretlint": "11.2.5",
     "tsx": "4.20.6",
