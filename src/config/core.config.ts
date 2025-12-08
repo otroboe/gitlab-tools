@@ -1,6 +1,6 @@
-import dotenv from 'dotenv';
+import { loadEnvFile } from 'node:process';
 
-dotenv.config({ quiet: true });
+loadEnvFile();
 
 const currentDirectory = process.cwd();
 

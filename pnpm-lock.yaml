@@ -23,9 +23,6 @@ importers:
       '@types/node':
         specifier: 24.10.1
         version: 24.10.1
-      dotenv:
-        specifier: 17.2.3
-        version: 17.2.3
       knip:
         specifier: 5.72.0
         version: 5.72.0(@types/node@24.10.1)(typescript@5.9.3)
@@ -564,10 +561,6 @@ packages:
     peerDependenciesMeta:
       supports-color:
         optional: true
-
-  dotenv@17.2.3:
-    resolution: {integrity: sha512-JVUnt+DUIzu87TABbhPmNfVdBDt18BLOWjMUFJMSi/Qqg7NTYtabbvSNJGOJ7afbRuv9D/lngizHtP7QyLQ+9w==}
-    engines: {node: '>=12'}
 
   dunder-proto@1.0.1:
     resolution: {integrity: sha512-KIN/nDJBQRcXw0MLVhZE9iQHmG68qAVIBg9CqmUYjmQIhgij9U5MFvrqkUL5FbtyyzZuOeOt0zdeRe4UY7ct+A==}
@@ -1471,8 +1464,6 @@ snapshots:
   debug@4.4.3:
     dependencies:
       ms: 2.1.3
-
-  dotenv@17.2.3: {}
 
   dunder-proto@1.0.1:
     dependencies:
