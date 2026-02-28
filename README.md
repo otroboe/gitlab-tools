@@ -94,5 +94,4 @@ pnpm cleanup:report
 
 ## Ideas
 
-- Mapping for Gitlab username / Slack username
 - Scan for JIRA ticket number
