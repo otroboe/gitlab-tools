@@ -1,16 +1,21 @@
-import { fetchMergeRequests, parseMergeRequest } from '@/actions';
+import { fetchGroupPaths, fetchMergeRequests, parseMergeRequest } from '@/actions';
 import { MergeRequest } from '@/common';
 import { CoreConfig } from '@/config';
 
 export const getParsedMergeRequests = async (config: CoreConfig): Promise<MergeRequest[]> => {
-  const { groupId, mrMinReviewers, token } = config;
+  const { excludedGroupIds, groupId, mrMinReviewers, token } = config;
 
-  const mergeRequests = await fetchMergeRequests({
-    groupId,
-    token,
-  });
+  const [mergeRequests, excludedPaths] = await Promise.all([
+    fetchMergeRequests({ groupId, token }),
+    fetchGroupPaths({ groupIds: excludedGroupIds, token }),
+  ]);
 
-  const list = mergeRequests.map((item) => parseMergeRequest(item, mrMinReviewers));
+  const filtered =
+    excludedPaths.length > 0
+      ? mergeRequests.filter((mr) => !excludedPaths.some((path) => mr.references.full.startsWith(path)))
+      : mergeRequests;
+
+  const list = filtered.map((item) => parseMergeRequest(item, mrMinReviewers));
 
   // Sort Alpha
   return list.toSorted((a, b) => {

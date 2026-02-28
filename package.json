@@ -19,7 +19,7 @@
   "author": "",
   "license": "ISC",
   "type": "module",
-  "packageManager": "pnpm@10.25.0",
+  "packageManager": "pnpm@10.30.3",
   "engines": {
     "node": ">=24.0.0"
   },
@@ -34,12 +34,12 @@
   "devDependencies": {
     "@gitbeaker/rest": "43.8.0",
     "@ls-lint/ls-lint": "2.3.1",
-    "@secretlint/secretlint-rule-preset-recommend": "11.2.5",
-    "@trivago/prettier-plugin-sort-imports": "6.0.0",
+    "@secretlint/secretlint-rule-preset-recommend": "11.3.1",
+    "@trivago/prettier-plugin-sort-imports": "6.0.2",
     "@types/node": "24.10.1",
-    "knip": "5.72.0",
-    "prettier": "3.7.4",
-    "secretlint": "11.2.5",
+    "knip": "5.85.0",
+    "prettier": "3.8.1",
+    "secretlint": "11.3.1",
     "tsx": "4.21.0",
     "typescript": "5.9.3"
   }
