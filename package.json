@@ -12,6 +12,7 @@
     "show:groups": "tsx src/commands/show-groups.command.ts",
     "show:mrs": "tsx src/commands/show-merge-requests.command.ts",
     "mr:report": "tsx src/commands/merge-requests-report.command.ts",
+    "stats:reviewers": "tsx src/commands/reviewer-stats.command.ts",
     "cleanup:report": "tsx src/commands/cleanup-report.command.ts",
     "debug": "tsx src/commands/debug.command.ts"
   },

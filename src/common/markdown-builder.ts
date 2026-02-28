@@ -54,4 +54,13 @@ export class MarkdownBuilder {
     this.content += ` ${item}`;
     return this;
   }
+
+  addTable(headers: string[], rows: string[][]) {
+    const separator = headers.map(() => '---');
+    const lines = [headers, separator, ...rows].map((row) => `| ${row.join(' | ')} |`);
+    const prefix = this.content.length !== 0 ? '\n' : '';
+
+    this.content += `${prefix}${lines.join('\n')}`;
+    return this;
+  }
 }

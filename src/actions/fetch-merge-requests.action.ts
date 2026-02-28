@@ -5,6 +5,7 @@ type Options = {
   scope?: 'all' | 'created_by_me' | 'assigned_to_me';
   state?: 'opened' | 'closed' | 'locked' | 'merged';
   token: string;
+  updatedAfter?: string;
   wip?: 'no';
 };
 

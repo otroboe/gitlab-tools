@@ -29,3 +29,10 @@ export enum MergeRequestCategory {
 }
 
 export type CategorizedMergeRequests = Record<MergeRequestCategory, MergeRequest[]>;
+
+export type ReviewerStat = {
+  approvalRate: number;
+  totalApproved: number;
+  totalAssigned: number;
+  username: string;
+};
