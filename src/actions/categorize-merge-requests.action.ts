@@ -10,21 +10,13 @@ export const categorizeMergeRequests = (mergeRequests: MergeRequest[]): Categori
   const result = initResult();
 
   mergeRequests.forEach((mergeRequest) => {
-    const {
-      canBeMerged,
-      hasChecklistDone,
-      hasEnoughReviewers,
-      hasNoConflicts,
-      hasNoUnresolvedDiscussions,
-      hasSonarApproval,
-      isRebased,
-    } = mergeRequest;
+    const { canBeMerged, hasEnoughReviewers, hasNoConflicts, hasNoUnresolvedDiscussions, hasSonarApproval, isRebased } =
+      mergeRequest;
 
     // Ambiguous criteria list
     if (
       [
         canBeMerged,
-        hasChecklistDone,
         hasEnoughReviewers,
         hasNoConflicts,
         hasNoUnresolvedDiscussions,
@@ -37,15 +29,9 @@ export const categorizeMergeRequests = (mergeRequests: MergeRequest[]): Categori
     }
 
     if (
-      [
-        canBeMerged,
-        hasChecklistDone,
-        hasEnoughReviewers,
-        hasNoConflicts,
-        hasNoUnresolvedDiscussions,
-        hasSonarApproval,
-        isRebased,
-      ].every((criteria) => criteria)
+      [canBeMerged, hasEnoughReviewers, hasNoConflicts, hasNoUnresolvedDiscussions, hasSonarApproval, isRebased].every(
+        (criteria) => criteria,
+      )
     ) {
       result[MergeRequestCategory.READY_TO_REVIEW].push(mergeRequest);
       return;

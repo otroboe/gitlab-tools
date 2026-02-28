@@ -9,7 +9,6 @@ export type MergeRequest = Nullable<{
   author: string;
   canBeMerged: boolean;
   detailedStatus: string;
-  hasChecklistDone: boolean;
   hasEnoughReviewers: boolean;
   hasNoConflicts: boolean;
   hasNoUnresolvedDiscussions: boolean;

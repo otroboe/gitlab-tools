@@ -13,7 +13,6 @@ export const addMergeRequestInfoToReport = (builder: MarkdownBuilder, mr: MergeR
     .addSameLineItem(`discussions ${getStatusEmoji(mr.hasNoUnresolvedDiscussions)}`)
     .addSameLineItem(`sonar ${getStatusEmoji(mr.hasSonarApproval)}`)
     .addSameLineItem(`conflicts ${getStatusEmoji(mr.hasNoConflicts)}`)
-    .addSameLineItem(`checklist ${getStatusEmoji(mr.hasChecklistDone)}`)
     .addSameLineItem(`rebased ${getStatusEmoji(mr.isRebased)}`)
     .addSameLineItem(`mergeable ${getStatusEmoji(mr.canBeMerged)}`)
     .addSameLineItem(`status \`${mr.detailedStatus}\``);

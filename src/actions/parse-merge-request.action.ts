@@ -22,15 +22,11 @@ export const parseMergeRequest = (
     projectId,
     references,
     reviewers: reviewerCollection,
-    taskCompletionStatus,
     title,
     webUrl: url,
   } = info;
 
   const isRebased = (detailedStatus as string) !== 'need_rebase';
-  const hasChecklistDone = taskCompletionStatus
-    ? taskCompletionStatus?.completedCount === taskCompletionStatus?.count
-    : null;
   const reviewers: MergeRequestReviewer[] = Array.isArray(reviewerCollection)
     ? reviewerCollection?.map(({ username }) => ({ username }))
     : [];
@@ -40,7 +36,6 @@ export const parseMergeRequest = (
     author: author.username,
     canBeMerged: mergeStatus === 'can_be_merged',
     detailedStatus,
-    hasChecklistDone,
     hasEnoughReviewers: reviewers.length >= mrMinReviewers,
     hasNoConflicts: !hasConflicts,
     hasNoUnresolvedDiscussions,

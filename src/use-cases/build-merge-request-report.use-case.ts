@@ -52,10 +52,6 @@ const writeNeedAttentionSection = (builder: MarkdownBuilder, list: MergeRequest[
       builder.addSameLineItem(`conflicts ${getStatusEmoji(mr.hasNoConflicts)}`);
     }
 
-    if (mr.hasChecklistDone === false) {
-      builder.addSameLineItem(`checklist ${getStatusEmoji(mr.hasChecklistDone)}`);
-    }
-
     if (mr.isRebased === false) {
       builder.addSameLineItem(`rebased ${getStatusEmoji(mr.isRebased)}`);
     }
