@@ -2,15 +2,15 @@ import { fetchMergeRequests, getMergeRequestReviewers, parseMergeRequest } from 
 import { MergeRequest } from '@/common';
 import { CoreConfig } from '@/config';
 
-const THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000;
 const CONCURRENCY = 10;
 
 export const getReviewerStats = async (
   config: CoreConfig,
+  days: number,
 ): Promise<{ mergeRequests: MergeRequest[]; total: number }> => {
   const { groupId, mrMinReviewers, token } = config;
 
-  const updatedAfter = new Date(Date.now() - THIRTY_DAYS_MS).toISOString();
+  const updatedAfter = new Date(Date.now() - days * 24 * 60 * 60 * 1000).toISOString();
 
   const mergedMrs = await fetchMergeRequests({ groupId, state: 'merged', token, updatedAfter, wip: 'no' });
 

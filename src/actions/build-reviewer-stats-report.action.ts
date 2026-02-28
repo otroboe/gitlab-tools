@@ -2,13 +2,18 @@ import { generateReportFilename } from '@/actions/generate-report-filename.actio
 import { MarkdownBuilder, ReviewerStat, formatDate } from '@/common';
 import { CoreConfig } from '@/config';
 
-export const buildReviewerStatsReport = async (config: CoreConfig, stats: ReviewerStat[], totalMrs: number) => {
+export const buildReviewerStatsReport = async (
+  config: CoreConfig,
+  stats: ReviewerStat[],
+  totalMrs: number,
+  days: number,
+) => {
   const { reportsDirectory } = config;
   const fileName = generateReportFilename('reviewer-stats');
 
   const now = new Date();
-  const thirtyDaysAgo = new Date(now);
-  thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+  const startDate = new Date(now);
+  startDate.setDate(startDate.getDate() - days);
 
   const builder = new MarkdownBuilder({
     fileDirectory: reportsDirectory,
@@ -16,9 +21,9 @@ export const buildReviewerStatsReport = async (config: CoreConfig, stats: Review
   });
 
   builder
-    .addTitle('Reviewer Statistics — Past 30 days', 1)
-    .addListItem(`**Period:** ${formatDate(thirtyDaysAgo)} → ${formatDate(now)}`)
-    .addListItem(`**Total MRs analyzed:** ${totalMrs}`);
+    .addTitle(`Reviewer Statistics — Past ${days} days`, 1)
+    .addListItem(`**Period:** ${formatDate(startDate)} → ${formatDate(now)}`)
+    .addListItem(`**Total merged MRs analyzed:** ${totalMrs}`);
 
   if (stats.length === 0) {
     builder.addListItem('No reviewer data found.');
