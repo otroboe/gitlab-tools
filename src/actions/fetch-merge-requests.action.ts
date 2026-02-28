@@ -21,6 +21,7 @@ export const fetchMergeRequests = async (options: Options): Promise<Camelize<Mer
 
   try {
     return api.all({
+      perPage: 100,
       scope: 'all',
       state: 'opened',
       wip: 'no',

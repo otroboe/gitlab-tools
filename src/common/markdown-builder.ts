@@ -58,7 +58,7 @@ export class MarkdownBuilder {
   addTable(headers: string[], rows: string[][]) {
     const separator = headers.map(() => '---');
     const lines = [headers, separator, ...rows].map((row) => `| ${row.join(' | ')} |`);
-    const prefix = this.content.length !== 0 ? '\n' : '';
+    const prefix = this.content.length !== 0 ? '\n\n' : '';
 
     this.content += `${prefix}${lines.join('\n')}`;
     return this;
